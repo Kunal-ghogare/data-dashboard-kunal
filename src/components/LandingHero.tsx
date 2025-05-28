@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Database, BarChart3, TrendingUp, Brain, PieChart, LineChart } from 'lucide-react';
+import { ChevronDown, Database, BarChart3, TrendingUp, Brain, PieChart, LineChart, Award, Users, DollarSign, Target } from 'lucide-react';
 
 const LandingHero = () => {
   const scrollToAbout = () => {
@@ -11,21 +11,21 @@ const LandingHero = () => {
     }
   };
 
-  // Mock data for visualizations
-  const salesData = [
-    { month: 'Jan', sales: 12000, profit: 3200 },
-    { month: 'Feb', sales: 19000, profit: 4100 },
-    { month: 'Mar', sales: 15000, profit: 3800 },
-    { month: 'Apr', sales: 22000, profit: 5200 },
-    { month: 'May', sales: 28000, profit: 6800 },
-    { month: 'Jun', sales: 31000, profit: 7400 }
+  // Career progression data showing skill growth over time
+  const careerData = [
+    { year: '2019', skillLevel: 25, experience: 'Intern', projects: 2 },
+    { year: '2020', skillLevel: 45, experience: 'Junior', projects: 5 },
+    { year: '2021', skillLevel: 65, experience: 'Analyst', projects: 8 },
+    { year: '2022', skillLevel: 80, experience: 'Senior', projects: 12 },
+    { year: '2023', skillLevel: 95, experience: 'Expert', projects: 15 }
   ];
 
-  const kpiData = [
-    { label: 'Revenue Growth', value: '+24.5%', trend: 'up' },
-    { label: 'Customer Satisfaction', value: '94.2%', trend: 'up' },
-    { label: 'Market Share', value: '18.7%', trend: 'up' },
-    { label: 'Cost Reduction', value: '-12.3%', trend: 'down' }
+  // Personalized KPI data based on actual achievements
+  const achievementData = [
+    { label: 'Cost Reduction', value: '$3K/month', trend: 'up', icon: DollarSign },
+    { label: 'Data Processed', value: '380M+ rows', trend: 'up', icon: Database },
+    { label: 'Lead Cost Reduction', value: '49%', trend: 'up', icon: Target },
+    { label: 'Experience', value: '3+ Years', trend: 'up', icon: Award }
   ];
 
   return (
@@ -124,7 +124,7 @@ const LandingHero = () => {
           </div>
         </motion.div>
 
-        {/* Right Side - Data Visualization Dashboard */}
+        {/* Right Side - Personalized Career Dashboard */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -135,39 +135,38 @@ const LandingHero = () => {
             {/* Dashboard Header */}
             <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-slate-800">Sales Performance Dashboard</h3>
+                <h3 className="text-lg font-semibold text-slate-800">Career Impact Dashboard</h3>
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  <span className="text-sm text-slate-600">Live Data</span>
+                  <span className="text-sm text-slate-600">Real Achievements</span>
                 </div>
               </div>
             </div>
             
-            {/* KPI Cards */}
+            {/* Achievement Cards */}
             <div className="p-6 space-y-6">
               <div className="grid grid-cols-2 gap-4">
-                {kpiData.map((kpi, index) => (
-                  <motion.div
-                    key={kpi.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                    className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-slate-600">{kpi.label}</span>
-                      {kpi.trend === 'up' ? (
-                        <TrendingUp className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
-                      )}
-                    </div>
-                    <div className="text-2xl font-bold text-slate-800">{kpi.value}</div>
-                  </motion.div>
-                ))}
+                {achievementData.map((achievement, index) => {
+                  const IconComponent = achievement.icon;
+                  return (
+                    <motion.div
+                      key={achievement.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                      className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-slate-600">{achievement.label}</span>
+                        <IconComponent className="w-4 h-4 text-blue-500" />
+                      </div>
+                      <div className="text-2xl font-bold text-slate-800">{achievement.value}</div>
+                    </motion.div>
+                  );
+                })}
               </div>
 
-              {/* Chart Area */}
+              {/* Career Growth Chart */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -176,38 +175,58 @@ const LandingHero = () => {
               >
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-semibold text-slate-700 flex items-center gap-2">
-                    <LineChart className="w-4 h-4" />
-                    Revenue Trend (6 months)
+                    <TrendingUp className="w-4 h-4" />
+                    Career Growth Journey
                   </h4>
                   <div className="flex items-center space-x-4 text-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <span className="text-slate-600">Sales</span>
+                      <span className="text-slate-600">Skill Level</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-slate-600">Profit</span>
+                      <span className="text-slate-600">Projects</span>
                     </div>
                   </div>
                 </div>
                 
-                {/* Simple Bar Chart Visualization */}
+                {/* Career Progression Chart */}
                 <div className="flex items-end justify-between h-32 space-x-2">
-                  {salesData.map((data, index) => (
+                  {careerData.map((data, index) => (
                     <motion.div
-                      key={data.month}
-                      initial={{ height: 0 }}
-                      animate={{ height: `${(data.sales / 35000) * 100}%` }}
-                      transition={{ duration: 1, delay: 1.5 + index * 0.1 }}
-                      className="flex-1 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm relative group"
+                      key={data.year}
+                      className="flex-1 flex flex-col items-center space-y-1"
                     >
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded">
-                          ${data.sales.toLocaleString()}
+                      {/* Skill Level Bar */}
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: `${data.skillLevel}%` }}
+                        transition={{ duration: 1, delay: 1.5 + index * 0.1 }}
+                        className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm relative group max-h-24"
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                            {data.experience}: {data.skillLevel}%
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-slate-600">
-                        {data.month}
+                      </motion.div>
+                      
+                      {/* Projects Indicator */}
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.5, delay: 2 + index * 0.1 }}
+                        className="w-3 h-3 bg-green-500 rounded-full relative group"
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded">
+                            {data.projects} projects
+                          </div>
+                        </div>
+                      </motion.div>
+                      
+                      <div className="text-xs text-slate-600 font-medium">
+                        {data.year}
                       </div>
                     </motion.div>
                   ))}
@@ -223,9 +242,9 @@ const LandingHero = () => {
               >
                 <div className="flex items-center space-x-4">
                   <PieChart className="w-5 h-5 text-blue-600" />
-                  <span className="text-sm font-medium text-slate-700">Built with Tableau & Python</span>
+                  <span className="text-sm font-medium text-slate-700">SQL • Python • Tableau • Power BI</span>
                 </div>
-                <div className="text-sm text-slate-500">380M+ rows processed</div>
+                <div className="text-sm text-slate-500">From intern to expert</div>
               </motion.div>
             </div>
           </div>
