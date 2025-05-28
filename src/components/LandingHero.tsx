@@ -1,37 +1,32 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Database, BarChart3, TrendingUp, Brain } from 'lucide-react';
+import { ChevronDown, Database, BarChart3, TrendingUp, Brain, PieChart, LineChart } from 'lucide-react';
 
 const LandingHero = () => {
-  const codeSnippet = `// Welcome to my data universe
-const dataAnalyst = {
-  name: 'Kunal Ghogare',
-  title: 'Strategic Data Analyst',
-  skills: [
-    'Python', 'SQL', 'Tableau', 'Power BI',
-    'Machine Learning', 'Statistical Analysis'
-  ],
-  passion: 'Turning data into insights',
-  experience: '3+ years',
-  dataProcessed: '380M+ rows',
-  
-  transformData: function() {
-    return this.skills
-      .map(skill => skill + ' expertise')
-      .filter(insight => insight.includes('data'))
-      .reduce((impact, insight) => impact + insight, '');
-  }
-};
-
-console.log('Ready to analyze your data! 📊');`;
-
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Mock data for visualizations
+  const salesData = [
+    { month: 'Jan', sales: 12000, profit: 3200 },
+    { month: 'Feb', sales: 19000, profit: 4100 },
+    { month: 'Mar', sales: 15000, profit: 3800 },
+    { month: 'Apr', sales: 22000, profit: 5200 },
+    { month: 'May', sales: 28000, profit: 6800 },
+    { month: 'Jun', sales: 31000, profit: 7400 }
+  ];
+
+  const kpiData = [
+    { label: 'Revenue Growth', value: '+24.5%', trend: 'up' },
+    { label: 'Customer Satisfaction', value: '94.2%', trend: 'up' },
+    { label: 'Market Share', value: '18.7%', trend: 'up' },
+    { label: 'Cost Reduction', value: '-12.3%', trend: 'down' }
+  ];
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-slate-800 flex items-center justify-center relative overflow-hidden">
@@ -129,44 +124,109 @@ console.log('Ready to analyze your data! 📊');`;
           </div>
         </motion.div>
 
-        {/* Right Side - Code Terminal */}
+        {/* Right Side - Data Visualization Dashboard */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative"
         >
-          <div className="bg-slate-800 rounded-lg shadow-2xl overflow-hidden">
-            {/* Terminal Header */}
-            <div className="bg-slate-700 px-4 py-3 flex items-center space-x-2">
-              <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-              <span className="text-slate-300 text-sm ml-4">data_analyst.js</span>
+          <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200">
+            {/* Dashboard Header */}
+            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-slate-800">Sales Performance Dashboard</h3>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                  <span className="text-sm text-slate-600">Live Data</span>
+                </div>
+              </div>
             </div>
             
-            {/* Code Content */}
-            <div className="p-6 font-mono text-sm">
-              <motion.pre
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 2, delay: 0.8 }}
-                className="text-slate-300 whitespace-pre-wrap leading-relaxed"
+            {/* KPI Cards */}
+            <div className="p-6 space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                {kpiData.map((kpi, index) => (
+                  <motion.div
+                    key={kpi.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                    className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-slate-600">{kpi.label}</span>
+                      {kpi.trend === 'up' ? (
+                        <TrendingUp className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
+                      )}
+                    </div>
+                    <div className="text-2xl font-bold text-slate-800">{kpi.value}</div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Chart Area */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                className="bg-slate-50 rounded-lg p-4 border border-slate-200"
               >
-                <span className="text-green-400">// Welcome to my data universe</span>
-                {'\n'}<span className="text-blue-400">const</span> <span className="text-yellow-300">dataAnalyst</span> = {'{'}
-                {'\n'}  <span className="text-red-300">name</span>: <span className="text-green-300">'Kunal Ghogare'</span>,
-                {'\n'}  <span className="text-red-300">title</span>: <span className="text-green-300">'Strategic Data Analyst'</span>,
-                {'\n'}  <span className="text-red-300">skills</span>: [
-                {'\n'}    <span className="text-green-300">'Python'</span>, <span className="text-green-300">'SQL'</span>, <span className="text-green-300">'Tableau'</span>,
-                {'\n'}    <span className="text-green-300">'Power BI'</span>, <span className="text-green-300">'Machine Learning'</span>
-                {'\n'}  ],
-                {'\n'}  <span className="text-red-300">passion</span>: <span className="text-green-300">'Turning data into insights'</span>,
-                {'\n'}  <span className="text-red-300">experience</span>: <span className="text-green-300">'3+ years'</span>,
-                {'\n'}  <span className="text-red-300">dataProcessed</span>: <span className="text-green-300">'380M+ rows'</span>
-                {'\n'}{'}'};
-                {'\n\n'}<span className="text-purple-400">console</span>.<span className="text-blue-400">log</span>(<span className="text-green-300">'Ready to analyze! 📊'</span>);
-              </motion.pre>
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="font-semibold text-slate-700 flex items-center gap-2">
+                    <LineChart className="w-4 h-4" />
+                    Revenue Trend (6 months)
+                  </h4>
+                  <div className="flex items-center space-x-4 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                      <span className="text-slate-600">Sales</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span className="text-slate-600">Profit</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Simple Bar Chart Visualization */}
+                <div className="flex items-end justify-between h-32 space-x-2">
+                  {salesData.map((data, index) => (
+                    <motion.div
+                      key={data.month}
+                      initial={{ height: 0 }}
+                      animate={{ height: `${(data.sales / 35000) * 100}%` }}
+                      transition={{ duration: 1, delay: 1.5 + index * 0.1 }}
+                      className="flex-1 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm relative group"
+                    >
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded">
+                          ${data.sales.toLocaleString()}
+                        </div>
+                      </div>
+                      <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-slate-600">
+                        {data.month}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Tools Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.8 }}
+                className="flex items-center justify-between pt-4 border-t border-slate-200"
+              >
+                <div className="flex items-center space-x-4">
+                  <PieChart className="w-5 h-5 text-blue-600" />
+                  <span className="text-sm font-medium text-slate-700">Built with Tableau & Python</span>
+                </div>
+                <div className="text-sm text-slate-500">380M+ rows processed</div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
