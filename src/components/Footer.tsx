@@ -9,7 +9,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 text-white py-8">
+    <footer className="bg-slate-100 border-t border-slate-200 text-slate-800 py-8">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
           {/* Copyright */}
@@ -18,7 +18,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="flex items-center space-x-2 text-gray-300 mb-4 md:mb-0"
+            className="flex items-center space-x-2 text-slate-600 mb-4 md:mb-0"
           >
             <span>© 2025 Kunal Ghogare. Built with</span>
             <Heart size={16} className="text-red-500" />
@@ -47,7 +47,7 @@ const Footer = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center text-gray-400 text-sm mt-6 pt-6 border-t border-gray-800"
+          className="text-center text-slate-500 text-sm mt-6 pt-6 border-t border-slate-200"
         >
           <p>Strategic Data Analyst • Machine Learning Enthusiast • Data Storyteller</p>
         </motion.div>

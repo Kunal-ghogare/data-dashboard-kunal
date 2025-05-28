@@ -24,7 +24,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="min-h-screen bg-gray-900 text-white py-20">
+    <section id="about" className="min-h-screen bg-white text-slate-800 py-20">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -42,9 +42,9 @@ const About = () => {
               viewport={{ once: true }}
             >
               <h1 className="text-5xl lg:text-6xl font-bold mb-4">
-                <span className="text-blue-400">Data</span> Analyst
+                <span className="text-blue-600">Data</span> Analyst
               </h1>
-              <p className="text-xl text-gray-300 leading-relaxed">
+              <p className="text-xl text-slate-600 leading-relaxed">
                 Strategic Data Analyst with 3+ years of experience turning complex data into actionable visualizations and KPIs. 
                 Skilled at stakeholder collaboration, uncovering insights through data storytelling and driving data-informed decisions.
               </p>
@@ -59,8 +59,8 @@ const About = () => {
               className="space-y-3"
             >
               {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 text-gray-300">
-                  <item.icon size={18} className="text-blue-400" />
+                <div key={index} className="flex items-center space-x-3 text-slate-600">
+                  <item.icon size={18} className="text-blue-600" />
                   <span>{item.text}</span>
                 </div>
               ))}
@@ -82,7 +82,7 @@ const About = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-3 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors"
+                  className="p-3 bg-slate-100 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
                   aria-label={link.label}
                 >
                   <link.icon size={20} />
@@ -107,18 +107,18 @@ const About = () => {
                 transition={{ duration: 0.6, delay: 0.1 * index }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 text-center"
+                className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   transition={{ duration: 0.8, delay: 0.2 * index, type: "spring" }}
                   viewport={{ once: true }}
-                  className="text-3xl lg:text-4xl font-bold text-blue-400 mb-2"
+                  className="text-3xl lg:text-4xl font-bold text-blue-600 mb-2"
                 >
                   {stat.number}
                 </motion.div>
-                <div className="text-gray-300 text-sm font-medium">{stat.label}</div>
+                <div className="text-slate-600 text-sm font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -136,24 +136,24 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6"
+              className="bg-slate-50 border border-slate-200 rounded-xl p-6"
             >
-              <h3 className="text-xl font-bold text-blue-400 mb-2">Master of Science in Information Technology</h3>
-              <p className="text-gray-300 mb-2">California State University, Long Beach</p>
-              <p className="text-gray-400 text-sm mb-3">Aug 2023 – May 2025</p>
-              <p className="text-gray-300 text-sm">Business Data Analysis, Machine Learning, Big Data Management, AI</p>
+              <h3 className="text-xl font-bold text-blue-600 mb-2">Master of Science in Information Technology</h3>
+              <p className="text-slate-600 mb-2">California State University, Long Beach</p>
+              <p className="text-slate-500 text-sm mb-3">Aug 2023 – May 2025</p>
+              <p className="text-slate-600 text-sm">Business Data Analysis, Machine Learning, Big Data Management, AI</p>
             </motion.div>
             
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6"
+              className="bg-slate-50 border border-slate-200 rounded-xl p-6"
             >
-              <h3 className="text-xl font-bold text-blue-400 mb-2">Bachelor of Engineering in Information Technology</h3>
-              <p className="text-gray-300 mb-2">Pune University</p>
-              <p className="text-gray-400 text-sm mb-3">Aug 2017 – May 2021 | GPA: 4.0/4.0</p>
+              <h3 className="text-xl font-bold text-blue-600 mb-2">Bachelor of Engineering in Information Technology</h3>
+              <p className="text-slate-600 mb-2">Pune University</p>
+              <p className="text-slate-500 text-sm mb-3">Aug 2017 – May 2021 | GPA: 4.0/4.0</p>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-green-400 text-sm font-medium">Perfect GPA</span>
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-green-600 text-sm font-medium">Perfect GPA</span>
               </div>
             </motion.div>
           </div>

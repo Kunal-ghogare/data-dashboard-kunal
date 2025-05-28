@@ -6,6 +6,7 @@ import { Download, Menu, X } from 'lucide-react';
 const Header = () => {
   const [activeSection, setActiveSection] = useState('about');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
     { id: 'about', label: 'About' },
@@ -19,6 +20,8 @@ const Header = () => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPos = window.scrollY + 100;
+      
+      setIsScrolled(window.scrollY > 50);
 
       sections.forEach((section, index) => {
         if (section) {
@@ -46,7 +49,11 @@ const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-lg border-b border-gray-800"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/90 backdrop-blur-lg border-b border-slate-200 shadow-sm' 
+          : 'bg-transparent'
+      }`}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
@@ -54,7 +61,7 @@ const Header = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-2xl font-bold text-white"
+            className="text-2xl font-bold text-slate-800"
           >
             Kunal Ghogare
           </motion.div>
@@ -67,15 +74,15 @@ const Header = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors ${
                   activeSection === item.id
-                    ? 'text-blue-400'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-blue-600'
+                    : 'text-slate-600 hover:text-slate-800'
                 }`}
               >
                 {item.label}
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
                   />
                 )}
               </button>
@@ -95,7 +102,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-white"
+            className="md:hidden text-slate-800"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -107,7 +114,7 @@ const Header = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden mt-4 py-4 border-t border-gray-800"
+            className="md:hidden mt-4 py-4 border-t border-slate-200 bg-white rounded-lg shadow-lg"
           >
             {navItems.map((item) => (
               <button
@@ -115,8 +122,8 @@ const Header = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
                   activeSection === item.id
-                    ? 'text-blue-400'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-blue-600'
+                    : 'text-slate-600 hover:text-slate-800'
                 }`}
               >
                 {item.label}
