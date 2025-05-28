@@ -2,6 +2,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Database, BarChart3, TrendingUp, Brain, PieChart, LineChart, Award, Users, DollarSign, Target } from 'lucide-react';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 
 const LandingHero = () => {
   const scrollToAbout = () => {
@@ -11,14 +13,26 @@ const LandingHero = () => {
     }
   };
 
-  // Career progression data showing skill growth over time
+  // Career progression data with skills for each year
   const careerData = [
-    { year: '2019', skillLevel: 25, experience: 'Intern', projects: 2 },
-    { year: '2020', skillLevel: 45, experience: 'Junior', projects: 5 },
-    { year: '2021', skillLevel: 65, experience: 'Analyst', projects: 8 },
-    { year: '2022', skillLevel: 80, experience: 'Senior', projects: 12 },
-    { year: '2023', skillLevel: 95, experience: 'Expert', projects: 15 }
+    { year: '2019', skillLevel: 25, projects: 2, skill: 'Excel', experience: 'Intern' },
+    { year: '2020', skillLevel: 45, projects: 5, skill: 'SQL', experience: 'Junior' },
+    { year: '2021', skillLevel: 65, projects: 8, skill: 'Python', experience: 'Analyst' },
+    { year: '2022', skillLevel: 80, projects: 12, skill: 'Tableau', experience: 'Senior' },
+    { year: '2023', skillLevel: 95, projects: 15, skill: 'Power BI', experience: 'Expert' }
   ];
+
+  // Chart configuration for recharts
+  const chartConfig = {
+    skillLevel: {
+      label: "Skill Level",
+      color: "#3b82f6",
+    },
+    projects: {
+      label: "Projects",
+      color: "#10b981",
+    },
+  };
 
   // Personalized KPI data based on actual achievements
   const achievementData = [
@@ -87,9 +101,86 @@ const LandingHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-5xl lg:text-6xl font-bold mb-4"
+              className="text-5xl lg:text-6xl font-bold mb-4 relative"
             >
-              Hi, I'm <span className="text-blue-600">Kunal</span> Ghogare
+              Hi, I'm{' '}
+              <motion.span
+                className="relative inline-block"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <motion.span
+                  className="text-blue-600 relative z-10"
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{
+                    background: "linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6)",
+                    backgroundSize: "300% 300%",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text"
+                  }}
+                >
+                  Kunal
+                </motion.span>
+                {/* Glowing effect */}
+                <motion.div
+                  className="absolute inset-0 blur-sm opacity-30"
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{
+                    background: "linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6)",
+                    backgroundSize: "300% 300%",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text"
+                  }}
+                >
+                  Kunal
+                </motion.div>
+                {/* Data particles effect */}
+                <motion.div
+                  className="absolute -top-2 -right-2"
+                  animate={{
+                    rotate: [0, 360],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <BarChart3 className="w-4 h-4 text-blue-400 opacity-70" />
+                </motion.div>
+                <motion.div
+                  className="absolute -bottom-2 -left-2"
+                  animate={{
+                    rotate: [360, 0],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <Database className="w-4 h-4 text-indigo-400 opacity-70" />
+                </motion.div>
+              </motion.span>{' '}
+              Ghogare
             </motion.h1>
             
             <motion.p
@@ -166,7 +257,7 @@ const LandingHero = () => {
                 })}
               </div>
 
-              {/* Career Growth Chart */}
+              {/* Enhanced Career Growth Chart */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -187,46 +278,76 @@ const LandingHero = () => {
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                       <span className="text-slate-600">Projects</span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span className="text-slate-600">Key Skill</span>
+                    </div>
                   </div>
                 </div>
                 
-                {/* Career Progression Chart */}
-                <div className="flex items-end justify-between h-32 space-x-2">
+                {/* Career Chart */}
+                <div className="h-48 w-full">
+                  <ChartContainer config={chartConfig} className="h-full w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={careerData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                        <defs>
+                          <linearGradient id="skillGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <XAxis 
+                          dataKey="year" 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fontSize: 12, fill: '#64748b' }}
+                        />
+                        <YAxis 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fontSize: 12, fill: '#64748b' }}
+                          domain={[0, 100]}
+                        />
+                        <ChartTooltip 
+                          content={<ChartTooltipContent />}
+                          formatter={(value, name) => {
+                            if (name === 'skillLevel') return [`${value}%`, 'Skill Level'];
+                            if (name === 'projects') return [value, 'Projects'];
+                            return [value, name];
+                          }}
+                        />
+                        <Area
+                          type="monotone"
+                          dataKey="skillLevel"
+                          stroke="#3b82f6"
+                          strokeWidth={2}
+                          fill="url(#skillGradient)"
+                        />
+                        <Bar dataKey="projects" fill="#10b981" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </div>
+
+                {/* Skills Timeline */}
+                <div className="mt-4 flex justify-between items-center">
                   {careerData.map((data, index) => (
                     <motion.div
                       key={data.year}
-                      className="flex-1 flex flex-col items-center space-y-1"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 2 + index * 0.1 }}
+                      className="flex flex-col items-center"
                     >
-                      {/* Skill Level Bar */}
                       <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: `${data.skillLevel}%` }}
-                        transition={{ duration: 1, delay: 1.5 + index * 0.1 }}
-                        className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm relative group max-h-24"
+                        whileHover={{ scale: 1.1 }}
+                        className="bg-red-500 text-white text-xs px-2 py-1 rounded font-medium mb-1"
                       >
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-                            {data.experience}: {data.skillLevel}%
-                          </div>
-                        </div>
+                        {data.skill}
                       </motion.div>
-                      
-                      {/* Projects Indicator */}
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.5, delay: 2 + index * 0.1 }}
-                        className="w-3 h-3 bg-green-500 rounded-full relative group"
-                      >
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded">
-                            {data.projects} projects
-                          </div>
-                        </div>
-                      </motion.div>
-                      
-                      <div className="text-xs text-slate-600 font-medium">
-                        {data.year}
+                      <div className="text-xs text-slate-600 text-center">
+                        <div className="font-medium">{data.experience}</div>
+                        <div>{data.projects} projects</div>
                       </div>
                     </motion.div>
                   ))}
